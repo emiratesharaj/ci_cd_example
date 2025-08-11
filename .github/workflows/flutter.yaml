@@ -36,6 +36,13 @@ jobs:
 
       - name: Run Flutter tests
         run: flutter test
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3.6'
+          bundler-cache: true
+          working-directory: android
       
       
       - name: Deploy to firebase using fastlane
@@ -43,6 +50,5 @@ jobs:
           FIREBASE_APP_ID: ${{secrets.APP_ID}} 
           FIREBASE_CLI_TOKEN: ${{secrets.FIREBASE_CLI_TOKEN}}
         run: |
-          cd android
           bundle exec fastlane deploy_to_firebase
 
