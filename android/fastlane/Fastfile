@@ -1,0 +1,16 @@
+default_platform(:android)
+platform :android do
+  desc "Distribute App to Firebase App Distribution"
+  lane :deploy_to_firebase do
+    sh "flutter build apk --release"
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID"],#
+      testers: "testers",
+      release_notes: "Automated build from FastLane",
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
+      android_artifact_path: "../build/app/outputs/flutter-apk/app-release.apk",
+      android_artifact_type: "APK",
+      debug: true
+      )
+  end
+end
